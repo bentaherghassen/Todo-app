@@ -1,0 +1,39 @@
+{% extends "layout.html" %} {% block content %} {% if
+current_user.is_authenticated %}
+<div class="container">
+  <h1>Tasks of {{ current_user.fname }}</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Option</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>
+          <form
+            action="{{ url_for('tasks.delete_task', task_id=task.id) }}"
+            method="POST"
+          >
+            <button type="submit"><i class="fa fa-trash"></i> Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="container">
+  <h1>Hey, This is @Home page</h1>
+  <h4>
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quidem nihil
+    dolor officiis at magni!"
+  </h4>
+</div>
+{% endif %} {% endblock content %}

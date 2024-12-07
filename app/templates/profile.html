@@ -1,0 +1,17 @@
+{%extends "layout.html"%} {% block content%}
+<div class="container mt-5">
+  <h1 class="text-center" style="color: #ff416c">Your Profile</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">First Name: {{ current_user.fname }}</h5>
+          <h5 class="card-title">First Name: {{ current_user.lname }}</h5>
+          <p class="card-text">Username : {{ current_user.username }}</p>
+          <p class="card-text">Email: {{ current_user.email }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

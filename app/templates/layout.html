@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    {% if title %}
+    <title>Todo-app - {{title}} Page</title>
+    {% else %}
+    <title>Todo-app</title>
+    {%endif%}
+
+
+    <!-- Css / CDN -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- CDN -->
+
+    <!-- Favicon -->
+    <!-- <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon"> -->
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- NAVBAR -->
+    <div>
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">My Todo app</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="{{url_for('main.home')}}">Home</a>
+                    <a class="nav-link fw-bold py-1 px-0" href="{{url_for('main.about')}}">About</a>
+                    {% if current_user.is_authenticated %}
+                    <div class="btn-group">
+  <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ current_user.fname }}
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <h6 class="dropdown-header">My Account </h6>
+    </li>
+    <li><a class="dropdown-item" href="{{url_for('users.profile')}}">My Profile</a></li>
+    <li><a class="dropdown-item" href="{{url_for('users.dashboard')}}">Dashboard</a></li>
+    
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="{{url_for('users.logout')}}">Logout</a></li>
+  </ul>
+</div>
+<a class="nav-link fw-bold py-1 px-0 " aria="page" href="{{url_for('tasks.new_task')}}">Add New Task</a>
+                    {% else %}
+                    <a class="nav-link fw-bold py-1 px-0" href="{{url_for('users.register')}}">Register</a>
+                    <a class="nav-link fw-bold py-1 px-0" href="{{url_for('users.login')}}">Login</a>
+                    {% endif%}
+                    
+
+                </nav>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}} text-center">
+            {{message}}
+        </div>
+        {% endfor %}
+
+        {% endif %}
+        {% endwith %}
+        {% block content%} {% endblock %}
+
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        
+</body>
+
+</html>
+
